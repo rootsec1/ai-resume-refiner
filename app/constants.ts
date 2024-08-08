@@ -32,6 +32,8 @@ export const DEFAULT_RESUME_REFINER_USER_PROMPT = (
          - Ensure that the refined bullet points use industry-standard terminology and avoid any jargon.
          - Keep the refined bullet points concise, clear, and directly to the point.
          - Ensure that you use a variety of industry standard action verbs that the ATS would like in the beginning of the bullet points to symbolize impact
+         - Strictly avoid jargon and fluffy language
+         - Any keywords added must and should be included in the bullet points in a natural and seamless manner.
   
       5. **Ensure Consistent Length**:
          - Make sure that the length of the refined bullet points does not significantly exceed the original length or 2 lines, whichever is lesser.
