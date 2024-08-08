@@ -23,7 +23,7 @@ export async function getResumeRefinementsUsingGPT(
         ),
       },
     ],
-    model: "gpt-4o-mini",
+    model: "gpt-4o",
   });
 
   return completion.choices[0].message.content?.trim();

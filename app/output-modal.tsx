@@ -38,7 +38,7 @@ export default function OutputModal({
               <ModalBody className="overflow-y-auto max-h-[70vh] bg-slate-50">
                 <Markdown
                   remarkPlugins={[remarkGfm]}
-                  className="text-small font-normal"
+                  className="text-small font-normal text-wrap"
                 >
                   {outputModalContent}
                 </Markdown>
