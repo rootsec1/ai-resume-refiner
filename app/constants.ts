@@ -10,60 +10,46 @@ export const DEFAULT_RESUME_REFINER_USER_PROMPT = (
   targetJobDescription: string
 ) => {
   return `
-      Follow these steps to refine the resume:
+  **Refine Resume for ATS**:
+  - Identify all technical skills and keywords mentioned in the job description. For example, if the job description includes "Proven experience with any of the following: WebAuthn, OIDC, SAML, AWS, React.js, Docker, Kubernetes, Terraform, Ansible, Git", extract these as individual keywords.
+  - Incorporate as many extracted keywords possible directly into the corresponding bullet points in the resume. Ensure all skills and technologies mentioned in the job description are present within the refined bullet points.
+  - Each modified bullet point should maintain a similar length to the original point without exceeding it, while naturally including the relevant keywords.
+  - Strictly include all keywords in the job description in the refined resume, especially those missing from the resume but present in the job description.
   
-      1. **Extract all technical keywords from Job Description**:
-         - Focus only on the job description, not the resume.
-         - Extract all technical keywords, including programming languages, frameworks, databases, tools, methodologies, and any specific technologies listed.
-         - Pay special attention to keywords found in the 'Mandatory Skills / Experience / Technology / Relevant Technologies / Tags' section.
-         - Identify all keywords without exception, such as 'Spring', 'Spring Boot', 'Java', 'Jenkins', 'Git', 'Microservices', 'Cloud', 'SQL', and any other relevant technologies or methodologies.
+  **Rephrase for Impact and Clarity**:
+  - Rephrase each refined bullet point to emphasize the impact or result first, followed by the action taken and the technologies used.
+  - For example, if the original bullet point is "Developed a new feature using React", rephrase it to "Increased user engagement by X% by developing a new feature using React.js and Docker."
+  - Integrate realistic metrics or numbers where necessary to demonstrate the impact of the candidate's work.
   
-      2. **Incorporate Keywords into Resume Bullet Points**:
-         - Suggest refinements or modifications to the majority of the bullet points in the resume.
-         - Seamlessly incorporate the extracted keywords into the bullet points to optimize the resume for ATS. Make up bullet points such that all keywords are included in case they are not present in the original resume.
-         - Ensure that all keywords extracted are from the job description, even if the resume is not a perfect match for the job description.
+  **Maintain Industry Standards**:
+  - Ensure that the refined bullet points use industry-standard terminology, avoiding any unnecessary jargon.
+  - Use a diverse set of action verbs to describe the candidate's accomplishments and responsibilities, do not repeat the same verbs across multiple bullet points. For example, do not use the word "increased", "improved", "implemented", "reduced" more than once.
+  - Avoid fluffy language; focus on clear, concise language.
   
-      3. **Rephrase for Impact and Clarity**:
-         - Rephrase each refined bullet point to emphasize the impact or result first, followed by the action taken and the technologies used.
-         - For example, if the original bullet point is "Developed a new feature using React", rephrase it to "Increased user engagement by X% by developing a new feature using React."
-         - Make up realistic metrics or numbers where necessary to demonstrate the impact of the candidate's work.
+  **Highlight Metrics and Impact**:
+  - Retain any metrics or numbers from the original bullet points.
+  - Move these metrics or numbers to the beginning of the bullet point in the refined version to highlight measurable impact.
   
-      4. **Maintain Industry Standards**:
-         - Ensure that the refined bullet points use industry-standard terminology and avoid any jargon.
-         - Keep the refined bullet points concise, clear, and directly to the point.
-         - Ensure that you use a variety of industry standard action verbs that the ATS would like in the beginning of the bullet points to symbolize impact
-         - Strictly avoid jargon and fluffy language
-         - Any keywords added must and should be included in the bullet points in a natural and seamless manner.
+  **Output the Result in JSON Format**:
+  - List refined bullet points in the same order as the original bullet points.
+  - Output the result strictly in JSON format as shown below and nothing else, making sure that the "keywords_added" are included in the "refined_text":
+    
+  [
+    {
+      "section": "<WHICH_SECTION_IT_IS_UNDER>",
+      "entity": "<NAME OF UNIVERSITY / COMPANY / SKILL CATEGORY>",
+      "original_text": "<original bullet point>",
+      "refined_text": "<refined bullet point with keywords integrated>",
+      "keywords_added": ["<extracted keyword 1>", "<extracted keyword 2>", "<extracted keyword 3>"]
+    }
+  ]
+    
+  Resume:
+  ${resumeText}
   
-      5. **Ensure Consistent Length**:
-         - Make sure that the length of the refined bullet points does not significantly exceed the original length or 2 lines, whichever is lesser.
-         - Aim to keep the refined bullet points similar in length to the original.
-  
-      6. **Highlight Metrics and Impact**:
-         - If any metrics or numbers are present in the original bullet points, ensure they are retained.
-         - Move these metrics or numbers to the beginning of the bullet point in the refined version to highlight the measurable impact.
-  
-      7. **Output the Result in JSON Format**:
-         - Use the following format for output, and provide nothing else, only the JSON list:
-  
-      [
-        {
-          "section": <WHICH_SECTION_IT_IS_UNDER>,
-          "entity": <NAME OF UNIVERSITY / COMPANY / SKILL CATEGORY>,
-          "original_text": "abc",
-          "refined_text": "xyz",
-          "keywords_added": ["x", "y", "z"]
-        }
-      ]
-  
-      The goal is to optimize the bullet points for ATS systems, ensuring that they effectively communicate the candidate's skills and accomplishments while incorporating all relevant technical keywords from the job description.
-  
-      Resume:
-      ${resumeText}
-  
-      Job Description:
-      ${targetJobDescription}
-    `;
+  Job Description:
+  ${targetJobDescription}
+  `;
 };
 
 // Placeholders
