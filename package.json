@@ -12,6 +12,7 @@
     "@google/generative-ai": "^0.16.0",
     "@nextui-org/react": "^2.4.6",
     "framer-motion": "^11.3.21",
+    "groq-sdk": "^0.5.0",
     "next": "14.2.5",
     "openai": "^4.55.0",
     "react": "^18",
@@ -21,6 +22,7 @@
     "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.14",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

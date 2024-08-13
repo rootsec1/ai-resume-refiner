@@ -32,26 +32,25 @@ export default function OutputModal({
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
+            <ModalHeader>
               <h2 className="text-2xl font-bold">Suggested Refinements</h2>
-
-              <ModalBody className="overflow-y-auto max-h-[70vh] bg-slate-50">
-                <Markdown
-                  remarkPlugins={[remarkGfm]}
-                  className="text-small font-normal text-wrap"
-                >
-                  {outputModalContent}
-                </Markdown>
-              </ModalBody>
             </ModalHeader>
 
-            <ModalFooter className="p-0 m-0">
+            <ModalBody className="overflow-y-auto max-h-[70vh] w-full p-4">
+              <Markdown
+                remarkPlugins={[remarkGfm]}
+                className="text-small prose max-w-none w-full"
+              >
+                {outputModalContent.trim()}
+              </Markdown>
+            </ModalBody>
+
+            <ModalFooter>
               <Button
                 color="danger"
                 variant="light"
                 onPress={onClose}
                 startContent={<FiX />}
-                className="mr-4 mb-4"
               >
                 Close
               </Button>

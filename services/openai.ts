@@ -1,18 +1,20 @@
-import OpenAI from "openai";
+import Groq from "groq-sdk";
 // Local
 import {
   DEFAULT_RESUME_REFINER_SYSTEM_PROMPT,
   DEFAULT_RESUME_REFINER_USER_PROMPT,
-  OPENAI_API_KEY,
 } from "@/app/constants";
 
-const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export async function getResumeRefinementsUsingGPT(
   resumeText: string,
   targetJobDescription: string
 ) {
-  const completion = await openai.chat.completions.create({
+  console.log(
+    DEFAULT_RESUME_REFINER_USER_PROMPT(resumeText, targetJobDescription)
+  );
+  const completion = await groq.chat.completions.create({
     messages: [
       { role: "system", content: DEFAULT_RESUME_REFINER_SYSTEM_PROMPT },
       {
@@ -23,7 +25,7 @@ export async function getResumeRefinementsUsingGPT(
         ),
       },
     ],
-    model: "gpt-4o",
+    model: "llama-3.1-70b-versatile",
   });
 
   return completion.choices[0].message.content?.trim();
