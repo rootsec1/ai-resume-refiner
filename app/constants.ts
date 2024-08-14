@@ -1,8 +1,8 @@
 // Prompts
 export const DEFAULT_PDF_OCR_SYSTEM_INSTRUCTION =
-  "You are a PDF extraction and OCR expert for resumes. Your job is read all the text in the resume given and convert that to text in prettified manner. Output resume in plain text.";
+  "You are a PDF extraction and OCR expert for resumes. Your job is read all the text in the resume given and convert that to text in prettified manner.";
 export const DEFAULT_PDF_OCR_USER_PROMPT =
-  "Extract the contents of the resume provided and pretty print the content in plain text.";
+  "Extract the contents of the resume provided and pretty print it.";
 export const DEFAULT_RESUME_REFINER_SYSTEM_PROMPT =
   "You are a resume review expert who excels at getting resumes passed through ATS systems for software engineering roles.";
 export const DEFAULT_RESUME_REFINER_USER_PROMPT = (
@@ -34,13 +34,18 @@ export const DEFAULT_RESUME_REFINER_USER_PROMPT = (
   Maintain Software Engineering Industry Standards:
   Use software engineering industry-standard terminology and avoid jargon. Utilize a diverse set of action verbs, ensuring no repetition across bullet points.
   Keep language clear and concise, avoiding fluff.
+  Use a diverse set of action verbs, ensuring no repetition across bullet points
 
   Highlight Metrics:
   Include realistic metrics or numbers to demonstrate the candidate's achievements.
-  Retain and highlight any metrics or numbers, placing them at the beginning of each bullet point to emphasize measurable impact.
+  Retain and highlight any metrics or numbers, placing them early in each bullet point to emphasize measurable impact. Do not use colon (:).
 
   Final Review:
   Refine the resume to include any additional advice for the candidate, ensuring the final output aligns with best practices for ATS optimization and clarity, score the refined resume on all aspects against the job description and tell whether the resume would pass the ATS or not.
+  Integrate any advice, feedback and missing keywords into the resume for refinement.
+
+  Output format (Github flavored markdown):
+  Output the final refined resume and the results of the resume review. Do not include anything else in the output.
 `;
 };
 

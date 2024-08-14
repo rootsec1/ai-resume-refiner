@@ -3,7 +3,7 @@
 import { NextRequest, NextResponse } from "next/server";
 // Local
 import { performOcrOnPdfUsingGemini } from "@/services/gemini";
-import { getResumeRefinementsUsingGPT } from "@/services/openai";
+import { getResumeRefinementsUsingGroq } from "@/services/groq";
 import { hash } from "crypto";
 
 const resumeOcrHashMap: { [key: string]: any } = {};
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     resumeOcrHashMap[resumeOcrHash] = resumeText;
   }
 
-  const resumeRefinements = await getResumeRefinementsUsingGPT(
+  const resumeRefinements = await getResumeRefinementsUsingGroq(
     resumeText,
     targetJobDescription
   );

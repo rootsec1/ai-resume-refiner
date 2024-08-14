@@ -7,7 +7,7 @@ import {
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-export async function getResumeRefinementsUsingGPT(
+export async function getResumeRefinementsUsingGroq(
   resumeText: string,
   targetJobDescription: string
 ) {
@@ -26,6 +26,7 @@ export async function getResumeRefinementsUsingGPT(
       },
     ],
     model: "llama-3.1-70b-versatile",
+    temperature: 0.3,
   });
 
   return completion.choices[0].message.content?.trim();
