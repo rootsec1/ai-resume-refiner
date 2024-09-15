@@ -58,6 +58,7 @@ export const DEFAULT_COVER_LETTER_USER_PROMPT = (
   Your job is to write a cover letter that is tailored to the job description and the candidate's resume by extracting keywords from the resume and aligning them with the job description.
   The cover letter should be short, concise, engaging, and demonstrate the candidate's fit for the role.
   Exclude fluff and jargon and be to the point.
+  Write it from the perspective of the candidate applying for the job.
 
   RESUME:
   ${resumeText}

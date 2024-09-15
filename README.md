@@ -7,7 +7,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 Setup the following environment variables in a `.env` file in the root of the project:
 
 ```
-OPENAI_API_KEY
+GROQ_API_KEY
 GEMINI_API_KEY
 ```
 
