@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Textarea, useDisclosure } from "@nextui-org/react";
-import { BsFillLightningFill } from "react-icons/bs";
+import { BsEnvelope, BsFillLightningFill } from "react-icons/bs";
 
 // Local
 import { DEFAULT_TARGET_JOB_DESCRIPTION_PLACEHOLDER } from "./constants";
@@ -20,6 +20,8 @@ export default function HomePage() {
 
   // Progress
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isGeneratingCoverLetter, setIsGeneratingCoverLetter] =
+    useState<boolean>(false);
 
   // Modal
   const {
@@ -63,6 +65,34 @@ export default function HomePage() {
     }
   }
 
+  async function onGenerateCoverLetterButtonPress() {
+    setIsGeneratingCoverLetter(true);
+
+    const formData = new FormData();
+    formData.append("resume", resume as File);
+    formData.append("targetJobDescription", targetJobDescription);
+
+    try {
+      const response = await fetch("/api/cover-letter", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        const coverLetter = responseData.data;
+        setRefinedResumeCorrections(coverLetter);
+        outputModalOnOpen();
+      } else {
+        alert("Failed to generate cover letter. Please try again.");
+      }
+    } catch (error) {
+      alert(`Error: ${error}`);
+    } finally {
+      setIsGeneratingCoverLetter(false);
+    }
+  }
+
   return (
     <main className="p-2 w-full flex flex-col justify-center items-center min-h-screen">
       <div className="text-center">
@@ -92,23 +122,45 @@ export default function HomePage() {
           />
         </div>
 
-        <Button
-          color="primary"
-          variant="shadow"
-          size="lg"
-          className="mt-16"
-          startContent={
-            isLoading ? null : <BsFillLightningFill color="white" size={24} />
-          }
-          isLoading={isLoading}
-          isDisabled={!resume || !targetJobDescription || isLoading}
-          onPress={onSubmitButtonPress}
-        >
-          {
-            // eslint-disable-next-line no-nested-ternary
-            isLoading ? "Refining..." : "Refine Resume"
-          }
-        </Button>
+        <div className="flex justify-center items-center mt-16 gap-4">
+          <Button
+            color="primary"
+            variant="shadow"
+            size="lg"
+            startContent={
+              isLoading ? null : <BsFillLightningFill color="white" size={24} />
+            }
+            isLoading={isLoading}
+            isDisabled={!resume || !targetJobDescription || isLoading}
+            onPress={onSubmitButtonPress}
+          >
+            {
+              // eslint-disable-next-line no-nested-ternary
+              isLoading ? "Refining..." : "Refine Resume"
+            }
+          </Button>
+
+          <Button
+            color="secondary"
+            variant="shadow"
+            size="lg"
+            startContent={
+              isGeneratingCoverLetter ? null : (
+                <BsEnvelope color="white" size={24} />
+              )
+            }
+            isLoading={isGeneratingCoverLetter}
+            isDisabled={
+              !resume || !targetJobDescription || isGeneratingCoverLetter
+            }
+            onPress={onGenerateCoverLetterButtonPress}
+          >
+            {
+              // eslint-disable-next-line no-nested-ternary
+              isLoading ? "Generating..." : "Generate Cover Letter"
+            }
+          </Button>
+        </div>
 
         {refinedResumeCorrections && (
           <OutputModal

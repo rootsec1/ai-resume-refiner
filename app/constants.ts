@@ -49,6 +49,24 @@ export const DEFAULT_RESUME_REFINER_USER_PROMPT = (
 `;
 };
 
+export const DEFAULT_COVER_LETTER_USER_PROMPT = (
+  resumeText: string,
+  targetJobDescription: string
+) => {
+  return `
+  You are a cover letter expert who excels at writing cover letters for software engineering roles.
+  Your job is to write a cover letter that is tailored to the job description and the candidate's resume by extracting keywords from the resume and aligning them with the job description.
+  The cover letter should be short, concise, engaging, and demonstrate the candidate's fit for the role.
+  Exclude fluff and jargon and be to the point.
+
+  RESUME:
+  ${resumeText}
+
+  JOB DESCRIPTION:
+  ${targetJobDescription}
+  `;
+};
+
 // Placeholders
 export const DEFAULT_TARGET_JOB_DESCRIPTION_PLACEHOLDER = `5+ years of experience working on modern SaaS applications
 Knowledge of distributed system design best practices
